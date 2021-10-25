@@ -97,6 +97,7 @@ class Plane:
   objects = []
   speeds = [1,2,3,4,5,6,7,8,9,10]
   speed = 1
+  _levelName = 'Unknown level'
   _collision = None
   _backgroundColor = (0,0,0)
   _eventSleepTime = 300
@@ -143,6 +144,7 @@ class Plane:
     return [x,y]
 
   def _drawState(self, playerXY):
+    pygame.display.set_caption('Planes: ' + self._levelName)
     self._drawPlane()
     self._drawGoal()
     self._drawPlayer(playerXY)
@@ -299,6 +301,7 @@ class Plane:
     if not success:
       levelToLoad = self._defaultLevels[0]
     self.loadMyLevel(levelToLoad)
+    self._levelName = levelName
     return success
 
   def turnLeft(self):
