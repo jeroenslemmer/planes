@@ -43,6 +43,7 @@ from SpriteSheet import SpriteSheet
 #   playerPosition is the X and Y position on the plane: [X,Y]
 #   playerOrientation is the direction in which the player is turned
 #   goalReached is True if the player has reached the treasure
+#   version is the version of the current software of planes.py. 
 #
 # ######## properties to set
 #   speed is animation speed: 1 to 10 where 1 = slow, 10 = fast
@@ -67,6 +68,7 @@ class Directions:
   left = 3
 
 class Plane:
+  version = '0.0.1'
   # directions in Plane: 0 = up, 1 = right, 2 = down, 3 = left
   _defaultLevels = [
     { 'name': 'level 1', 
@@ -93,9 +95,8 @@ class Plane:
   ]
   tileSize = 64
   level = None
-  tiles = [] # list of lists of tiles
   objects = []
-  speeds = [1,2,3,4,5,6,7,8,9,10]
+  _speeds = [1,2,3,4,5,6,7,8,9,10]
   speed = 1
   _levelName = 'Unknown level'
   _collision = None
@@ -128,7 +129,6 @@ class Plane:
   def _drawCollision(self):
     if not self._collision == None:
       self._screen.blit(self.collisionImages[self._collision['state']],(self._collision['position'][0],self._collision['position'][1]))
-      # self._screen.blit(self.collisionImages[2],(100,100))
 
   def _drawPlayer(self, playerXY):
     self._screen.blit(self.playerStateImages[self.playerState[0]][self.playerState[1]],(playerXY[0],playerXY[1]))
@@ -153,7 +153,7 @@ class Plane:
 
   def _animateMove(self, *args):
     # should be non-blocking for input
-    if int(self.speed) not in self.speeds:
+    if int(self.speed) not in self._speeds:
       self.speed = 1
     playerXY = self._playerXY(self.playerPosition)
     if args[0] == 'left':
