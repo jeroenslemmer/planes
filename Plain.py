@@ -2,12 +2,12 @@ import pygame # install in terminal with: pip install pygame
 import sys
 from SpriteSheet import SpriteSheet
 
-# Plane Class #############################################################
+# Plain Class #############################################################
 #
 #   An object of this class...
 #
-#   lets you create a plane with an maze of tiles, a player and a treasure
-#   the tiles of the plane, the player and the treasure depend on the level
+#   lets you create a plain with an maze of tiles, a player and a treasure
+#   the tiles of the plain, the player and the treasure depend on the level
 #   lets you program the movement of the hero over tiles through the maze
 #   lets you scan the directions in which the hero can pass to other tiles
 #
@@ -29,7 +29,7 @@ from SpriteSheet import SpriteSheet
 #     turns the player to the right
 #
 #   canPass(direction)
-#     returns True if the player can move one tile in the given direction
+#     returns True if the player can move to the tile in the given direction
 #
 #   wait(operator)
 #       waits for the the program window to be closed
@@ -40,10 +40,10 @@ from SpriteSheet import SpriteSheet
 #       make the player move on keyboard-keys: UP, RIGHT, DOWN and LEFT
 #
 # ######## properties to inspect
-#   playerPosition is the X and Y position on the plane: [X,Y]
+#   playerPosition is the X and Y position on the plain: [X,Y]
 #   playerOrientation is the direction in which the player is turned
 #   goalReached is True if the player has reached the treasure
-#   version is the version of the current software of planes.py. 
+#   version is the version of the current software of plains.py. 
 #
 # ######## properties to set
 #   speed is animation speed: 1 to 10 where 1 = slow, 10 = fast
@@ -54,9 +54,9 @@ from SpriteSheet import SpriteSheet
 #     loads a predefined level for levelName {string}
 #     returns True if succeeded, returns False if failed
 #     
-#   loadMyLevel(plane) 
-#     loads a self made plane 
-#     where plane is a list of properties of the plane
+#   loadMyLevel(plain) 
+#     loads a self made plain 
+#     where plain is a list of properties of the plain
 #     returns True if succeeded, returns False if failed
 #
 #############################################################################
@@ -67,9 +67,9 @@ class Directions:
   down = 2
   left = 3
 
-class Plane:
+class Plain:
   version = '0.0.1'
-  # directions in Plane: 0 = up, 1 = right, 2 = down, 3 = left
+  # directions in Plain: 0 = up, 1 = right, 2 = down, 3 = left
   _defaultLevels = [
     { 'name': 'level 1', 
       'tileTypes': [
@@ -110,7 +110,7 @@ class Plane:
     self._clock = pygame.time.Clock()
     self.loadLevel(levelName)
 
-  def _drawPlane(self):
+  def _drawPlain(self):
     self._screen.fill(self._backgroundColor)
     rownr = 0
     for row in self.level['tiles']:
@@ -144,8 +144,8 @@ class Plane:
     return [x,y]
 
   def _drawState(self, playerXY):
-    pygame.display.set_caption('Planes: ' + self._levelName)
-    self._drawPlane()
+    pygame.display.set_caption('Plains: ' + self._levelName)
+    self._drawPlain()
     self._drawGoal()
     self._drawPlayer(playerXY)
     self._drawCollision()
@@ -440,26 +440,4 @@ class Plane:
   def operate(self):
     self.wait(self._operator)
 
-plane = Plane('level 1')
-
-plane.speed = 5 
-plane.turnLeft()
-plane.moveForward()
-plane.moveForward()
-plane.moveForward()
-plane.operate()
-# plane.turnRight()
-# plane.moveForward()
-# plane.turnRight()
-
-# plane.moveForward()
-
-# plane.turnRight()
-# plane.moveForward()
-
-for d in range(4):
-  print(plane.canPass(d))
-
-
-plane.wait()
 
